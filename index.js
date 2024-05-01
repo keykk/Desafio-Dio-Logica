@@ -31,20 +31,25 @@ function determinarNivelXP(xp) {
 
 
 // Função recursiva para solicitar entrada do usuário até que ele digite "sair"
-let texto = "Digite o nome do Heroi ";
+let heroiId = 1;
+let texto = "Digite o nome do Heroi "+heroiId;
 let nome = "";
+
 function getUserInput() { 
-  rl.question(texto+'(digite "sair" para encerrar): ', (userInput) => {
+  rl.question(texto+' (digite "sair" para encerrar): ', (userInput) => {
     if (userInput.toLowerCase() === 'sair') {
       rl.close(); // Encerra a leitura do input
     } else  if (!isNaN(userInput)) {
         let xp = parseFloat(userInput);
         console.log("O Herói de nome "+nome+" está no nível de "+determinarNivelXP(xp));
-        rl.close(); 
+        //rl.close();
+        heroiId = heroiId + 1;
+        texto = "Digite o nome do Heroi "+heroiId; 
+        getUserInput(); // Chama a função novamente para solicitar mais entrada
     } else {
       //console.log('Bem vindo Heroi ', userInput);
       nome = userInput;
-      texto = "Digite a experiencia do heroi ";
+      texto = "Digite a experiencia do heroi "+heroiId;
       getUserInput(); // Chama a função novamente para solicitar mais entrada
     }
   });
